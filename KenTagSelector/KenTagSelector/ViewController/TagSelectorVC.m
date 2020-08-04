@@ -72,6 +72,7 @@
             mod.resident = YES;//常驻
         }
         mod.editable = NO;
+        mod.selected = NO;
         mod.tagType = OtherChannel;
         [_recommandTags addObject:mod];
     }

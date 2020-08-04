@@ -56,11 +56,11 @@
                 _btnDel.hidden = NO;
             }
             
-            if (model.selected) {
-                _title.textColor = [KenTagSelectorUtils colorNamed:@"focus_color"];
-            }else{
+//            if (model.selected) {
+//                _title.textColor = [KenTagSelectorUtils colorNamed:@"focus_color"];
+//            }else{
                 _title.textColor = [KenTagSelectorUtils colorNamed:@"cell_text_color"];
-            }
+            //}
             
         } else if (model.tagType == OtherChannel) {
             if (model.editable) {
@@ -73,4 +73,8 @@
     
 }
 
+- (void)delete:(UIButton *)sender{
+    
+    [_delegate deleteCell:sender];
+}
 @end
