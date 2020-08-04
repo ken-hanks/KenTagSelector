@@ -15,7 +15,28 @@
 		AD8B1D1D24D8FD040060EF51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8B1D1C24D8FD040060EF51 /* Assets.xcassets */; };
 		AD8B1D2024D8FD040060EF51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD8B1D1E24D8FD040060EF51 /* LaunchScreen.storyboard */; };
 		AD8B1D2324D8FD040060EF51 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8B1D2224D8FD040060EF51 /* main.m */; };
+		AD8B1D2924D8FEB80060EF51 /* Channel.h in Headers */ = {isa = PBXBuildFile; fileRef = AD8B1D2724D8FEB80060EF51 /* Channel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD8B1D2A24D8FEB80060EF51 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8B1D2824D8FEB80060EF51 /* Channel.m */; };
+		AD8B1D3324D900910060EF51 /* ChannelCollectionCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AD8B1D3124D900910060EF51 /* ChannelCollectionCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD8B1D3424D900910060EF51 /* ChannelCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8B1D3224D900910060EF51 /* ChannelCollectionCell.m */; };
+		AD8B1D4024D931C50060EF51 /* UnselectedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8B1D3C24D931C50060EF51 /* UnselectedHeaderView.m */; };
+		AD8B1D4124D931C50060EF51 /* UnselectedHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = AD8B1D3D24D931C50060EF51 /* UnselectedHeaderView.h */; };
+		AD8B1D4224D931C50060EF51 /* SelectedHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = AD8B1D3E24D931C50060EF51 /* SelectedHeaderView.h */; };
+		AD8B1D4324D931C50060EF51 /* SelectedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8B1D3F24D931C50060EF51 /* SelectedHeaderView.m */; };
+		AD8B1D4624D936360060EF51 /* TagSelectorVC.h in Headers */ = {isa = PBXBuildFile; fileRef = AD8B1D4424D936360060EF51 /* TagSelectorVC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD8B1D4724D936360060EF51 /* TagSelectorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8B1D4524D936360060EF51 /* TagSelectorVC.m */; };
+		AD8B1D4924D938F40060EF51 /* KenTagSelector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8B1CFF24D8FCC80060EF51 /* KenTagSelector.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AD8B1D4B24D938F40060EF51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8B1CF624D8FCC80060EF51 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD8B1CFE24D8FCC80060EF51;
+			remoteInfo = KenTagSelector;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		AD8B1CFF24D8FCC80060EF51 /* KenTagSelector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KenTagSelector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,6 +54,16 @@
 		AD8B1D1F24D8FD040060EF51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AD8B1D2124D8FD040060EF51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD8B1D2224D8FD040060EF51 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AD8B1D2724D8FEB80060EF51 /* Channel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
+		AD8B1D2824D8FEB80060EF51 /* Channel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
+		AD8B1D3124D900910060EF51 /* ChannelCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelCollectionCell.h; sourceTree = "<group>"; };
+		AD8B1D3224D900910060EF51 /* ChannelCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelCollectionCell.m; sourceTree = "<group>"; };
+		AD8B1D3C24D931C50060EF51 /* UnselectedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnselectedHeaderView.m; sourceTree = "<group>"; };
+		AD8B1D3D24D931C50060EF51 /* UnselectedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnselectedHeaderView.h; sourceTree = "<group>"; };
+		AD8B1D3E24D931C50060EF51 /* SelectedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedHeaderView.h; sourceTree = "<group>"; };
+		AD8B1D3F24D931C50060EF51 /* SelectedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectedHeaderView.m; sourceTree = "<group>"; };
+		AD8B1D4424D936360060EF51 /* TagSelectorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagSelectorVC.h; sourceTree = "<group>"; };
+		AD8B1D4524D936360060EF51 /* TagSelectorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagSelectorVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD8B1D4924D938F40060EF51 /* KenTagSelector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +91,7 @@
 				AD8B1D0124D8FCC80060EF51 /* KenTagSelector */,
 				AD8B1D0F24D8FD020060EF51 /* KenTagSelectorDemo */,
 				AD8B1D0024D8FCC80060EF51 /* Products */,
+				AD8B1D4824D938F40060EF51 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +107,9 @@
 		AD8B1D0124D8FCC80060EF51 /* KenTagSelector */ = {
 			isa = PBXGroup;
 			children = (
+				AD8B1D3B24D931A80060EF51 /* ViewController */,
+				AD8B1D2C24D8FFFE0060EF51 /* View */,
+				AD8B1D2B24D8FEDE0060EF51 /* Model */,
 				AD8B1D0224D8FCC80060EF51 /* KenTagSelector.h */,
 				AD8B1D0324D8FCC80060EF51 /* Info.plist */,
 			);
@@ -98,6 +134,44 @@
 			path = KenTagSelectorDemo;
 			sourceTree = "<group>";
 		};
+		AD8B1D2B24D8FEDE0060EF51 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD8B1D2724D8FEB80060EF51 /* Channel.h */,
+				AD8B1D2824D8FEB80060EF51 /* Channel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AD8B1D2C24D8FFFE0060EF51 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AD8B1D3124D900910060EF51 /* ChannelCollectionCell.h */,
+				AD8B1D3224D900910060EF51 /* ChannelCollectionCell.m */,
+				AD8B1D3E24D931C50060EF51 /* SelectedHeaderView.h */,
+				AD8B1D3F24D931C50060EF51 /* SelectedHeaderView.m */,
+				AD8B1D3D24D931C50060EF51 /* UnselectedHeaderView.h */,
+				AD8B1D3C24D931C50060EF51 /* UnselectedHeaderView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AD8B1D3B24D931A80060EF51 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AD8B1D4424D936360060EF51 /* TagSelectorVC.h */,
+				AD8B1D4524D936360060EF51 /* TagSelectorVC.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		AD8B1D4824D938F40060EF51 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -105,7 +179,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD8B1D4124D931C50060EF51 /* UnselectedHeaderView.h in Headers */,
+				AD8B1D4624D936360060EF51 /* TagSelectorVC.h in Headers */,
+				AD8B1D3324D900910060EF51 /* ChannelCollectionCell.h in Headers */,
+				AD8B1D2924D8FEB80060EF51 /* Channel.h in Headers */,
 				AD8B1D0424D8FCC80060EF51 /* KenTagSelector.h in Headers */,
+				AD8B1D4224D931C50060EF51 /* SelectedHeaderView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +220,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				AD8B1D4C24D938F40060EF51 /* PBXTargetDependency */,
 			);
 			name = KenTagSelectorDemo;
 			productName = KenTagSelectorDemo;
@@ -208,6 +288,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD8B1D4324D931C50060EF51 /* SelectedHeaderView.m in Sources */,
+				AD8B1D2A24D8FEB80060EF51 /* Channel.m in Sources */,
+				AD8B1D4024D931C50060EF51 /* UnselectedHeaderView.m in Sources */,
+				AD8B1D3424D900910060EF51 /* ChannelCollectionCell.m in Sources */,
+				AD8B1D4724D936360060EF51 /* TagSelectorVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +308,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AD8B1D4C24D938F40060EF51 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD8B1CFE24D8FCC80060EF51 /* KenTagSelector */;
+			targetProxy = AD8B1D4B24D938F40060EF51 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AD8B1D1924D8FD020060EF51 /* Main.storyboard */ = {
@@ -295,7 +388,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -350,7 +443,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -371,6 +464,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = KenTagSelector/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -395,6 +489,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = KenTagSelector/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -412,9 +507,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EB8QBCY43A;
 				INFOPLIST_FILE = KenTagSelectorDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -429,9 +526,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EB8QBCY43A;
 				INFOPLIST_FILE = KenTagSelectorDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

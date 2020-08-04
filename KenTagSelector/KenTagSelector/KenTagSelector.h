@@ -15,5 +15,7 @@ FOUNDATION_EXPORT double KenTagSelectorVersionNumber;
 FOUNDATION_EXPORT const unsigned char KenTagSelectorVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <KenTagSelector/PublicHeader.h>
-
+#import <KenTagSelector/TagSelectorVC.h>
+#import <KenTagSelector/ChannelCollectionCell.h>
+#import <KenTagSelector/Channel.h>
 
