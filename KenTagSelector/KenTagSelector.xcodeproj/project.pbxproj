@@ -25,7 +25,11 @@
 		AD8B1D4324D931C50060EF51 /* SelectedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8B1D3F24D931C50060EF51 /* SelectedHeaderView.m */; };
 		AD8B1D4624D936360060EF51 /* TagSelectorVC.h in Headers */ = {isa = PBXBuildFile; fileRef = AD8B1D4424D936360060EF51 /* TagSelectorVC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD8B1D4724D936360060EF51 /* TagSelectorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8B1D4524D936360060EF51 /* TagSelectorVC.m */; };
-		AD8B1D4924D938F40060EF51 /* KenTagSelector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8B1CFF24D8FCC80060EF51 /* KenTagSelector.framework */; };
+		AD8B1D5124D941800060EF51 /* KenTagSelector.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8B1D5024D941800060EF51 /* KenTagSelector.xcassets */; };
+		AD8B1D5224D944D20060EF51 /* KenTagSelector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8B1CFF24D8FCC80060EF51 /* KenTagSelector.framework */; };
+		AD8B1D5324D944D20060EF51 /* KenTagSelector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AD8B1CFF24D8FCC80060EF51 /* KenTagSelector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AD8B1D5824D9468A0060EF51 /* KenTagSelectorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = AD8B1D5624D9468A0060EF51 /* KenTagSelectorUtils.h */; };
+		AD8B1D5924D9468A0060EF51 /* KenTagSelectorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8B1D5724D9468A0060EF51 /* KenTagSelectorUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +41,20 @@
 			remoteInfo = KenTagSelector;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AD8B1D5424D944D20060EF51 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AD8B1D5324D944D20060EF51 /* KenTagSelector.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AD8B1CFF24D8FCC80060EF51 /* KenTagSelector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KenTagSelector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +82,9 @@
 		AD8B1D3F24D931C50060EF51 /* SelectedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectedHeaderView.m; sourceTree = "<group>"; };
 		AD8B1D4424D936360060EF51 /* TagSelectorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagSelectorVC.h; sourceTree = "<group>"; };
 		AD8B1D4524D936360060EF51 /* TagSelectorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagSelectorVC.m; sourceTree = "<group>"; };
+		AD8B1D5024D941800060EF51 /* KenTagSelector.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = KenTagSelector.xcassets; sourceTree = "<group>"; };
+		AD8B1D5624D9468A0060EF51 /* KenTagSelectorUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KenTagSelectorUtils.h; sourceTree = "<group>"; };
+		AD8B1D5724D9468A0060EF51 /* KenTagSelectorUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KenTagSelectorUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD8B1D4924D938F40060EF51 /* KenTagSelector.framework in Frameworks */,
+				AD8B1D5224D944D20060EF51 /* KenTagSelector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,11 +128,13 @@
 		AD8B1D0124D8FCC80060EF51 /* KenTagSelector */ = {
 			isa = PBXGroup;
 			children = (
+				AD8B1D5524D9466F0060EF51 /* Utils */,
 				AD8B1D3B24D931A80060EF51 /* ViewController */,
 				AD8B1D2C24D8FFFE0060EF51 /* View */,
 				AD8B1D2B24D8FEDE0060EF51 /* Model */,
 				AD8B1D0224D8FCC80060EF51 /* KenTagSelector.h */,
 				AD8B1D0324D8FCC80060EF51 /* Info.plist */,
+				AD8B1D5024D941800060EF51 /* KenTagSelector.xcassets */,
 			);
 			path = KenTagSelector;
 			sourceTree = "<group>";
@@ -172,6 +195,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AD8B1D5524D9466F0060EF51 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AD8B1D5624D9468A0060EF51 /* KenTagSelectorUtils.h */,
+				AD8B1D5724D9468A0060EF51 /* KenTagSelectorUtils.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -183,6 +215,7 @@
 				AD8B1D4624D936360060EF51 /* TagSelectorVC.h in Headers */,
 				AD8B1D3324D900910060EF51 /* ChannelCollectionCell.h in Headers */,
 				AD8B1D2924D8FEB80060EF51 /* Channel.h in Headers */,
+				AD8B1D5824D9468A0060EF51 /* KenTagSelectorUtils.h in Headers */,
 				AD8B1D0424D8FCC80060EF51 /* KenTagSelector.h in Headers */,
 				AD8B1D4224D931C50060EF51 /* SelectedHeaderView.h in Headers */,
 			);
@@ -216,6 +249,7 @@
 				AD8B1D0A24D8FD020060EF51 /* Sources */,
 				AD8B1D0B24D8FD020060EF51 /* Frameworks */,
 				AD8B1D0C24D8FD020060EF51 /* Resources */,
+				AD8B1D5424D944D20060EF51 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -268,6 +302,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD8B1D5124D941800060EF51 /* KenTagSelector.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +326,7 @@
 				AD8B1D4324D931C50060EF51 /* SelectedHeaderView.m in Sources */,
 				AD8B1D2A24D8FEB80060EF51 /* Channel.m in Sources */,
 				AD8B1D4024D931C50060EF51 /* UnselectedHeaderView.m in Sources */,
+				AD8B1D5924D9468A0060EF51 /* KenTagSelectorUtils.m in Sources */,
 				AD8B1D3424D900910060EF51 /* ChannelCollectionCell.m in Sources */,
 				AD8B1D4724D936360060EF51 /* TagSelectorVC.m in Sources */,
 			);

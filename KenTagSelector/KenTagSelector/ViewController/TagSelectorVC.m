@@ -9,6 +9,7 @@
 #import "TagSelectorVC.h"
 #import "SelectedHeaderView.h"
 #import "UnselectedHeaderView.h"
+#import "KenTagSelectorUtils.h"
 
 #define KScreenWidth ([[UIScreen mainScreen] bounds].size.width)
 
@@ -36,7 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:0.11 green:0.11 blue:0.11 alpha:1.00];
+    self.view.backgroundColor = [KenTagSelectorUtils colorNamed:@"background_color"];
     //加载数据
     [self makeTags];
     //视图
@@ -80,20 +81,28 @@
     
     UIButton *exit = [[UIButton alloc]init];
     [self.view addSubview:exit];
-    exit.frame = CGRectMake(15, 30, 20, 20);
-    [exit setImage:[UIImage imageNamed:@"Exit"] forState:UIControlStateNormal];
+    exit.frame = CGRectMake(KScreenWidth - 32 - 15, 15, 32, 32);
+    [exit setImage:[KenTagSelectorUtils imageNamed:@"close_selector"] forState:UIControlStateNormal];
     exit.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [exit addTarget:self action:@selector(returnLast) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, KScreenWidth - 30, 30)];
+    labelTitle.font = [UIFont systemFontOfSize:18];
+    labelTitle.textAlignment = NSTextAlignmentCenter;
+    labelTitle.text = @"全部栏目";
+    labelTitle.textColor = [KenTagSelectorUtils colorNamed:@"title_color"];
+    [self.view addSubview:labelTitle];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     _mainView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, exit.frame.origin.y+exit.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-40) collectionViewLayout:layout];
     [self.view addSubview:_mainView];
-    _mainView.backgroundColor = [UIColor colorWithRed:0.11 green:0.11 blue:0.11 alpha:1.00];
+    _mainView.backgroundColor = [UIColor clearColor];
     [_mainView registerClass:[ChannelCollectionCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
     [_mainView registerClass:[SelectedHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head1"];
     [_mainView registerClass:[UnselectedHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head2"];
     _mainView.delegate = self;
     _mainView.dataSource = self;
+    
     //添加长按的手势
     UILongPressGestureRecognizer *longPress=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
     [_mainView addGestureRecognizer:longPress];
@@ -234,6 +243,7 @@
         }
         [sender setTitle:@"编辑" forState:UIControlStateNormal];
     }
+    [_mainView reloadData];
     _onEdit = !_onEdit;
     
 }

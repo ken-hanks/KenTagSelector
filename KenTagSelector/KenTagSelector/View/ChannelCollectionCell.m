@@ -7,6 +7,7 @@
 //
 
 #import "ChannelCollectionCell.h"
+#import "KenTagSelectorUtils.h"
 
 @implementation ChannelCollectionCell
 
@@ -18,19 +19,23 @@
         //title
         _title = [[UILabel alloc]init];
         [self.contentView addSubview:_title];
-        _title.frame = CGRectMake(5, 5, frame.size.width-10, frame.size.height-10);
-        _title.backgroundColor = [UIColor colorWithRed:0.08 green:0.08 blue:0.08 alpha:1.0];
+        _title.frame = CGRectMake(2, 4, frame.size.width - 6, frame.size.height - 14);
+        _title.backgroundColor = [KenTagSelectorUtils colorNamed:@"cell_background_color"];
         _title.layer.masksToBounds = YES;
-        _title.layer.cornerRadius = 4;
+        _title.layer.cornerRadius = _title.frame.size.height / 2;
+        _title.layer.borderColor = [KenTagSelectorUtils colorNamed:@"cell_border_color"].CGColor;
+        _title.layer.borderWidth = 0.5;
         _title.font = [UIFont systemFontOfSize:16];
         _title.textAlignment = NSTextAlignmentCenter;
         _title.numberOfLines = 0;
-        _title.textColor = [UIColor colorWithRed:0.36 green:0.36 blue:0.36 alpha:1.00];
+        _title.textColor = [KenTagSelectorUtils colorNamed:@"cell_text_color"];
         
         _btnDel = [[UIButton alloc]init];
         [self.contentView addSubview:_btnDel];
-        _btnDel.frame = CGRectMake(frame.size.width-18, 0, 18, 18);
-        [_btnDel setImage:[UIImage imageNamed:@"channel_tag_delete"] forState:UIControlStateNormal];
+        _btnDel.frame = CGRectMake(frame.size.width - 18, 0, 18, 18);
+
+        UIImage *img = [UIImage imageNamed:@"channel_tag_delete" inBundle:[KenTagSelectorUtils getBundle] compatibleWithTraitCollection:nil];
+        [_btnDel setImage:img forState:UIControlStateNormal];
         [_btnDel addTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
@@ -52,9 +57,9 @@
             }
             
             if (model.selected) {
-                _title.textColor = [UIColor colorWithRed:0.5 green:0.26 blue:0.27 alpha:1.0];
+                _title.textColor = [KenTagSelectorUtils colorNamed:@"focus_color"];
             }else{
-                _title.textColor = [UIColor colorWithRed:0.36 green:0.36 blue:0.36 alpha:1.0];
+                _title.textColor = [KenTagSelectorUtils colorNamed:@"cell_text_color"];
             }
             
         } else if (model.tagType == OtherChannel) {
