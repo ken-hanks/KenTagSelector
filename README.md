@@ -4,14 +4,13 @@ A tag selector written by Objective-C. （一个类似网易栏目选择器的�
 ## 功能特性
   + 用户可单选栏目或将栏目加入选择列表。
   + 可设置固定栏目，固定栏目不能被删除。
-  + 已选栏目列表支持拖拽排序。
+  + 已选栏目列表中，长按Tag支持拖拽排序。
   + 已适配iOS13的暗黑模式。
 
 ![选择栏目](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/E8DA58A7-50F9-4E42-9F32-AF787D8A62D1.png)
 ![编辑栏目界面](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/5A65FB0F-1081-4F51-AB9B-37B01F093F61.png)
 ![已适配暗黑模式](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/55FBD6DC-688B-41F8-9D5F-056CAF788E98.png)
 ![已适配暗黑模式](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/89773076-D8B7-4138-A152-07F1A31BEC14.png)
-![已适配暗黑模式](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/55FBD6DC-688B-41F8-9D5F-056CAF788E98.png)
 ![动画效果](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/QQ20200805-142228.gif)
 
 ## 安装方法
@@ -30,6 +29,7 @@ A tag selector written by Objective-C. （一个类似网易栏目选择器的�
 ## 使用说明
 
   接入方式很简单，所以直接贴代码了。在需要展示栏目选择器的ViewController里像下面这样写就可以了。
+  选择结果通过2个Block返回（分别对应单选和多选）。
   
 ```
 
