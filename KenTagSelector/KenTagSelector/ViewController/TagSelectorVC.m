@@ -19,6 +19,9 @@
 {
     NSMutableArray *_selectedTags;
     NSMutableArray *_otherTags;
+    
+    UIButton        *_btnExit;
+    UILabel         *_labelTitle;
 
     BOOL _isEditMode;       //是否处于编辑状态
 }
@@ -82,23 +85,23 @@
 - (void)setupViews{
     
     //退出按钮
-    UIButton *exit = [[UIButton alloc]init];
-    [self.view addSubview:exit];
-    exit.frame = CGRectMake(KScreenWidth - 32 - 15, 15, 32, 32);
-    [exit setImage:[KenTagSelectorUtils imageNamed:@"close_selector"] forState:UIControlStateNormal];
-    exit.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [exit addTarget:self action:@selector(returnLast) forControlEvents:UIControlEventTouchUpInside];
+    _btnExit = [[UIButton alloc]init];
+    [self.view addSubview:_btnExit];
+    
+    [_btnExit setImage:[KenTagSelectorUtils imageNamed:@"close_selector"] forState:UIControlStateNormal];
+    _btnExit.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [_btnExit addTarget:self action:@selector(returnLast) forControlEvents:UIControlEventTouchUpInside];
     
     //总标题
-    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, KScreenWidth - 30, 30)];
-    labelTitle.font = [UIFont systemFontOfSize:18];
-    labelTitle.textAlignment = NSTextAlignmentCenter;
-    labelTitle.text = @"全部栏目";
-    labelTitle.textColor = [KenTagSelectorUtils colorNamed:@"title_color"];
-    [self.view addSubview:labelTitle];
+    _labelTitle = [[UILabel alloc] init];
+    _labelTitle.font = [UIFont systemFontOfSize:18];
+    _labelTitle.textAlignment = NSTextAlignmentCenter;
+    _labelTitle.text = @"全部栏目";
+    _labelTitle.textColor = [KenTagSelectorUtils colorNamed:@"title_color"];
+    [self.view addSubview:_labelTitle];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    _collectionMain = [[UICollectionView alloc]initWithFrame:CGRectMake(0, exit.frame.origin.y+exit.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - 80) collectionViewLayout:layout];
+    _collectionMain = [[UICollectionView alloc]initWithFrame:CGRectMake(0, _btnExit.frame.origin.y+_btnExit.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - 80) collectionViewLayout:layout];
     [self.view addSubview:_collectionMain];
     _collectionMain.backgroundColor = [UIColor clearColor];
     [_collectionMain registerClass:[ChannelCollectionCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
@@ -110,6 +113,14 @@
     //添加长按手势
     UILongPressGestureRecognizer *longPress=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
     [_collectionMain addGestureRecognizer:longPress];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    _btnExit.frame =  CGRectMake(KScreenWidth - 32 - 15, self.view.safeAreaInsets.top + 15, 32, 32);
+    _labelTitle.frame = CGRectMake(15, self.view.safeAreaInsets.top+ 15, KScreenWidth - 30, 30);
+    _collectionMain.frame = CGRectMake(0, _btnExit.frame.origin.y + _btnExit.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - 80);
 }
 
 - (void)longPress:(UIGestureRecognizer *)longPress {
