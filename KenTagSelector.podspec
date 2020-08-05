@@ -25,7 +25,8 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
-一个类似网易栏目选择器的标签选择界面，支持拖拽排序, 已适配暗黑模式。
+A tag selector like Netease written in Objective-C. 
+一个类似网易栏目选择器的标签选择界面，可单选栏目或将栏目加入选择列表。已选栏目支持拖拽排序, 已适配暗黑模式。
                    DESC
 
   spec.homepage     = "https://github.com/ken-hanks/KenTagSelector"
@@ -91,8 +92,8 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "KenTagSelector", "KenTagSelector/KenTagSelector/**/*"
-  spec.exclude_files = "Classes/Exclude"
+  spec.source_files  = "KenTagSelector", "KenTagSelector/KenTagSelector/**/*.{h,m}"
+  #spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
 
@@ -105,7 +106,7 @@ Pod::Spec.new do |spec|
   #  non-essential files like tests, examples and documentation.
   #
 
-  # spec.resource  = "icon.png"
+  spec.resource  = "KenTagSelector/KenTagSelector/KenTagSelector.xcassets"
   # spec.resources = "Resources/*.png"
 
   # spec.preserve_paths = "FilesToSave", "MoreFilesToSave"
