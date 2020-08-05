@@ -10,6 +10,8 @@ A tag selector written by Objective-C. （一个类似网易栏目选择器的�
 ![选择栏目](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/E8DA58A7-50F9-4E42-9F32-AF787D8A62D1.png)
 ![编辑栏目界面](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/5A65FB0F-1081-4F51-AB9B-37B01F093F61.png)
 ![已适配暗黑模式](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/55FBD6DC-688B-41F8-9D5F-056CAF788E98.png)
+![已适配暗黑模式](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/89773076-D8B7-4138-A152-07F1A31BEC14.png)
+![已适配暗黑模式](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/55FBD6DC-688B-41F8-9D5F-056CAF788E98.png)
 ![动画效果](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/QQ20200805-142228.gif)
 
 ## 安装方法
@@ -24,8 +26,11 @@ A tag selector written by Objective-C. （一个类似网易栏目选择器的�
   4. 在KenTagSelector.framework上点击鼠标右键，选“Show in Finder“，即可找到编译后的framework文件。
   5. 将KenTagSelector.framework插入到您的项目中。
 
+
 ## 使用说明
 
+  接入方式很简单，所以直接贴代码了。在需要展示栏目选择器的ViewController里像下面这样写就可以了。
+  
 ```
 
 #import "ViewController.h"
