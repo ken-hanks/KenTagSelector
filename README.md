@@ -1,6 +1,8 @@
 # KenTagSelector
 A tag selector written by Objective-C. （一个类似网易栏目选择器的标签选择界面）
 
+![已适配暗黑模式](https://github.com/ken-hanks/KenTagSelector/blob/master/KenTagSelector/ScreenShot/55FBD6DC-688B-41F8-9D5F-056CAF788E98.png)
+
 ## 安装方法：
 ### 使用CocoaPods （推荐）
   1. 在 Podfile 中添加一行 pod 'KenTagSelector'。
