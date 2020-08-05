@@ -11,9 +11,12 @@
 
 @interface ViewController ()
 {
-    __block NSMutableArray *_myTags;
-    __block NSMutableArray *_recommandTags;
+    __block NSMutableArray *selectedTagArray;
+    __block NSMutableArray *otherTagArray;
+    NSArray     *residentArray;
 }
+
+@property (weak, nonatomic) IBOutlet UILabel *labelSelected;
 @end
 
 @implementation ViewController
@@ -21,35 +24,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _myTags = @[@"关注",@"推荐",@"热点",@"北京",@"视频",@"社会",@"图片",@"娱乐",@"问答",@"科技",@"汽车",@"财经",@"军事",@"体育",@"段子",@"国际",@"趣图",@"健康",@"特卖",@"房产",@"美食",@"北京",@"视频",@"社会",@"图片",@"娱乐",@"问答",@"科技",@"汽车",@"财经",@"军事",@"体育",@"段子",@"国际",@"趣图",@"健康",@"特卖",@"房产",@"美食",@"北京",@"视频",@"社会",@"图片",@"娱乐",@"问答",@"科技",@"汽车",@"财经",@"军事",@"体育",@"段子",@"国际",@"趣图",@"健康",@"特卖",@"房产",@"美食"].mutableCopy;
-    _recommandTags = @[@"小说",@"时尚",@"历史",@"育儿",@"直播",@"搞笑",@"数码",@"养生",@"电影",@"手机",@"旅游",@"宠物",@"情感",@"家居",@"教育",@"三农"].mutableCopy;
+    selectedTagArray = @[@"关注",@"推荐",@"热点",@"北京",@"视频",@"社会",@"图片",@"娱乐",@"问答",@"科技",@"汽车",@"财经",@"军事",@"体育",@"段子",@"国际",@"趣图",@"健康",@"特卖",@"房产",@"美食",@"北京",@"视频",@"社会",@"图片",@"娱乐",@"问答",@"科技",@"汽车",@"财经",@"军事",@"体育",@"段子",@"国际",@"趣图",@"健康",@"特卖",@"房产",@"美食",@"北京",@"视频",@"社会",@"图片",@"娱乐",@"问答",@"科技",@"汽车",@"财经",@"军事",@"体育",@"段子",@"国际",@"趣图",@"健康",@"特卖",@"房产",@"美食"].mutableCopy;
+    otherTagArray = @[@"小说",@"时尚",@"历史",@"育儿",@"直播",@"搞笑",@"数码",@"养生",@"电影",@"手机",@"旅游",@"宠物",@"情感",@"家居",@"教育",@"三农"].mutableCopy;
+    residentArray = @[@"关注"];
+    
+    NSMutableString *strSelected = [NSMutableString new];
+    for (NSString *tag in selectedTagArray)
+    {
+        [strSelected appendString:tag];
+        [strSelected appendString:@", "];
+    }
+    _labelSelected.text = strSelected;
 }
 
 - (IBAction)onBtnSelectClicked:(id)sender {
     
-    TagSelectorVC *controller = [[TagSelectorVC alloc]initWithMyTags:_myTags andRecommandTags:_recommandTags];
-    [self presentViewController:controller animated:YES completion:^{}];
+    TagSelectorVC *selectorVC = [[TagSelectorVC alloc] initWithSelectedTags:selectedTagArray andOtherTags:otherTagArray];
+    selectorVC.residentTagStringArray = residentArray;
     
-    //所有的已选的tags
-    __block  NSMutableString *_str = @"已选：\n".mutableCopy;
-    controller.choosedTags = ^(NSArray *chooseTags, NSArray *recommandTags) {
-        _myTags = @[].mutableCopy;
-        _recommandTags = @[].mutableCopy;
-        for (Channel *mod in recommandTags) {
-            [_recommandTags addObject:mod.title];
+    [self presentViewController:selectorVC animated:YES completion:^{}];
+    
+    //返回所有选中栏目
+    __block  NSMutableString *_str = [NSMutableString new];
+    selectorVC.choosedTags = ^(NSArray *selectedTags, NSArray *otherTags) {
+        self->selectedTagArray = @[].mutableCopy;
+        self->otherTagArray = @[].mutableCopy;
+        for (Channel *channel in otherTags) {
+            [self->otherTagArray addObject:channel.title];
         }
-        for (Channel *mod in chooseTags) {
-            [_myTags addObject:mod.title];
-            [_str appendString:mod.title];
-            [_str appendString:@"、"];
+        for (Channel *channel in selectedTags) {
+            [self->selectedTagArray addObject:channel.title];
+            [_str appendString:channel.title];
+            [_str appendString:@", "];
         }
-        //_tagLabel.text = _str;
+        self->_labelSelected.text = _str;
     };
     
-    //单选tag
-    controller.selectedTag = ^(Channel *channel) {
+    //用户点击了某个栏目的处理Block
+    selectorVC.activeTag = ^(Channel *channel) {
         [_str appendString:channel.title];
-        //_tagLabel.text = _str;
+        self->_labelSelected.text = _str;
     };
 }
 

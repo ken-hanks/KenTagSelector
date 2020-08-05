@@ -11,24 +11,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^ChoosedTags)(NSArray *chooseTags,NSArray *recommandTags);
+typedef void(^ChoosedTags)(NSArray *selectedTags, NSArray *otherTags);
 
-typedef void(^SelectedTag)(Channel *channel);
+typedef void(^ActiveTag)(Channel *channel);
 
 
 @interface TagSelectorVC : UIViewController
 
-@property (nonatomic, strong) UICollectionView *mainView;
+@property (nonatomic, strong) UICollectionView *collectionMain;
 
-@property (nonatomic, strong) NSMutableArray *myChannels;
+@property (nonatomic, strong) NSMutableArray *selectedTagStringArray;       //已被选中的Tag名
 
-@property (nonatomic, strong) NSMutableArray *recommandChannels;
+@property (nonatomic, strong) NSMutableArray *otherTagStringArray;          //待选的Tag名
+
+@property (nonatomic, strong) NSArray *residentTagStringArray;              //不允许取消选择的Tag名
 
 @property (nonatomic, copy) ChoosedTags choosedTags;
 
-@property (nonatomic, copy) SelectedTag selectedTag;
+@property (nonatomic, copy) ActiveTag   activeTag;
 
--(instancetype)initWithMyTags:(NSArray *)myTags andRecommandTags:(NSArray *)recommandTags;
+-(instancetype)initWithSelectedTags:(NSArray *)selectedTags andOtherTags:(NSArray *)otherTags;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,25 +12,26 @@
 #import "KenTagSelectorUtils.h"
 
 #define KScreenWidth ([[UIScreen mainScreen] bounds].size.width)
+#define HEAD_SELECTED   @"head_selected"
+#define HEAD_OTHER      @"head_other"
 
 @interface TagSelectorVC () <UICollectionViewDelegate,UICollectionViewDataSource,ChannelCellDelegate>
 {
-    NSMutableArray *_myTags;
-    NSMutableArray *_recommandTags;
+    NSMutableArray *_selectedTags;
+    NSMutableArray *_otherTags;
 
-    BOOL _onEdit;//tag处在编辑状态
-    BOOL _tagDeletable;//在长按tag的时候是否可以删除该tag
+    BOOL _isEditMode;       //是否处于编辑状态
 }
 @end
 
 @implementation TagSelectorVC
 
--(instancetype)initWithMyTags:(NSArray *)myTags andRecommandTags:(NSArray *)recommandTags{
+-(instancetype)initWithSelectedTags:(NSArray *)selectedTags andOtherTags:(NSArray *)otherTags {
     
     self = [super init];
     if (self) {
-        _myChannels = myTags.mutableCopy;
-        _recommandChannels = recommandTags.mutableCopy;
+        _selectedTagStringArray = selectedTags.mutableCopy;
+        _otherTagStringArray = otherTags.mutableCopy;
     }
     return self;
 }
@@ -38,48 +39,49 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [KenTagSelectorUtils colorNamed:@"background_color"];
-    //加载数据
-    [self makeTags];
-    //视图
-    [self setupViews];
     
-    _onEdit = NO;
+    _isEditMode = NO;
+    
+    //将StringArray转为ChannelArray
+    [self initTags];
+    
+    //初始化界面
+    [self setupViews];
     
 }
 
-- (void)makeTags{
-    _myTags = @[].mutableCopy;
-    _recommandTags = @[].mutableCopy;
-    for (NSString *title in _myChannels) {
+- (void)initTags {
+    _selectedTags = @[].mutableCopy;
+    _otherTags = @[].mutableCopy;
+    for (NSString *title in _selectedTagStringArray) {
         Channel *mod = [[Channel alloc]init];
         mod.title = title;
-        if ([title isEqualToString:@"关注"]||[title isEqualToString:@"推荐"]) {
-            mod.resident = YES;//常驻
+        mod.resident = NO;
+        for (NSString * resident in _residentTagStringArray) {
+            if ([resident isEqualToString:title]) {
+                mod.resident = YES;     //在residentTagStringArray中存在，说明是不允许取消选择的Tag
+            }
         }
+
         mod.editable = YES;
         mod.selected = NO;
         mod.tagType = SelectedChannel;
-        //demo默认选择第一个
-        if ([title isEqualToString:@"关注"]) {
-            mod.selected = YES;
-        }
-        [_myTags addObject:mod];
+
+        [_selectedTags addObject:mod];
     }
-    for (NSString *title in _recommandChannels) {
+    for (NSString *title in _otherTagStringArray) {
         Channel *mod = [[Channel alloc]init];
         mod.title = title;
-        if ([title isEqualToString:@"关注"]||[title isEqualToString:@"推荐"]) {
-            mod.resident = YES;//常驻
-        }
         mod.editable = NO;
         mod.selected = NO;
         mod.tagType = OtherChannel;
-        [_recommandTags addObject:mod];
+        [_otherTags addObject:mod];
     }
 }
 
 - (void)setupViews{
     
+    //退出按钮
     UIButton *exit = [[UIButton alloc]init];
     [self.view addSubview:exit];
     exit.frame = CGRectMake(KScreenWidth - 32 - 15, 15, 32, 32);
@@ -87,6 +89,7 @@
     exit.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [exit addTarget:self action:@selector(returnLast) forControlEvents:UIControlEventTouchUpInside];
     
+    //总标题
     UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, KScreenWidth - 30, 30)];
     labelTitle.font = [UIFont systemFontOfSize:18];
     labelTitle.textAlignment = NSTextAlignmentCenter;
@@ -95,51 +98,45 @@
     [self.view addSubview:labelTitle];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    _mainView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, exit.frame.origin.y+exit.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-40) collectionViewLayout:layout];
-    [self.view addSubview:_mainView];
-    _mainView.backgroundColor = [UIColor clearColor];
-    [_mainView registerClass:[ChannelCollectionCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
-    [_mainView registerClass:[SelectedHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head1"];
-    [_mainView registerClass:[UnselectedHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head2"];
-    _mainView.delegate = self;
-    _mainView.dataSource = self;
+    _collectionMain = [[UICollectionView alloc]initWithFrame:CGRectMake(0, exit.frame.origin.y+exit.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - 80) collectionViewLayout:layout];
+    [self.view addSubview:_collectionMain];
+    _collectionMain.backgroundColor = [UIColor clearColor];
+    [_collectionMain registerClass:[ChannelCollectionCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+    [_collectionMain registerClass:[SelectedHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HEAD_SELECTED];
+    [_collectionMain registerClass:[UnselectedHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HEAD_OTHER];
+    _collectionMain.delegate = self;
+    _collectionMain.dataSource = self;
     
-    //添加长按的手势
+    //添加长按手势
     UILongPressGestureRecognizer *longPress=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
-    [_mainView addGestureRecognizer:longPress];
+    [_collectionMain addGestureRecognizer:longPress];
 }
 
 - (void)longPress:(UIGestureRecognizer *)longPress {
-    //获取点击在collectionView的坐标
-    CGPoint point=[longPress locationInView:_mainView];
-    //从长按开始
-    NSIndexPath *indexPath=[_mainView indexPathForItemAtPoint:point];
+    //获取点击坐标
+    CGPoint point=[longPress locationInView:_collectionMain];
+    
+    NSIndexPath *indexPath=[_collectionMain indexPathForItemAtPoint:point];
     if (longPress.state == UIGestureRecognizerStateBegan) {
-        [_mainView beginInteractiveMovementForItemAtIndexPath:indexPath];
-        if (_onEdit) {
-        }else{
-            //[self editTags:_editBtn];
-        }
-        _tagDeletable = NO;
-        //长按手势状态改变
+        [_collectionMain beginInteractiveMovementForItemAtIndexPath:indexPath];
+
     } else if(longPress.state==UIGestureRecognizerStateChanged) {
-        [_mainView updateInteractiveMovementTargetPosition:point];
-        //长按手势结束
+        [_collectionMain updateInteractiveMovementTargetPosition:point];
+
     } else if (longPress.state==UIGestureRecognizerStateEnded) {
-        [_mainView endInteractiveMovement];
-        _tagDeletable = YES;
-        //其他情况
+        [_collectionMain endInteractiveMovement];
+
     } else {
-        [_mainView cancelInteractiveMovement];
+        [_collectionMain cancelInteractiveMovement];
     }
 }
 
-#pragma mark- collection datasource
+#pragma mark - UICollectionViewDataSource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (section == 0) {
-        return _myTags.count;
+        return _selectedTags.count;
     }else{
-        return _recommandTags.count;
+        return _otherTags.count;
     }
 }
 
@@ -148,11 +145,11 @@
     static NSString * CellIdentifier = @"cellIdentifier";
     ChannelCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     if (indexPath.section == 0) {
-        if (_myTags.count>indexPath.item) {
-            cell.model = _myTags[indexPath.item];
+        if (_selectedTags.count>indexPath.item) {
+            cell.model = _selectedTags[indexPath.item];
             cell.btnDel.tag = indexPath.item;
             cell.delegate = self;
-            if (_onEdit) {
+            if (_isEditMode) {
                 if (cell.model.resident) {
                     cell.btnDel.hidden = YES;
                 }else{
@@ -167,8 +164,8 @@
             }
         }
     }else if (indexPath.section == 1){
-        if (_recommandTags.count>indexPath.item) {
-            cell.model = _recommandTags[indexPath.item];
+        if (_otherTags.count>indexPath.item) {
+            cell.model = _otherTags[indexPath.item];
             cell.delegate = self;
 //            if (_onEdit) {
 //                cell.delBtn.hidden = NO;
@@ -180,7 +177,7 @@
     return cell;
 }
 
-#pragma mark- collection delegate
+#pragma mark - UICollectionViewDelegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 2;
 }
@@ -206,7 +203,7 @@
     UICollectionReusableView *reusableview = nil;
     if (indexPath.section == 0) {
         if (kind == UICollectionElementKindSectionHeader) {
-            NSString *CellIdentifier = @"head1";
+            NSString *CellIdentifier = HEAD_SELECTED;
             SelectedHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:CellIdentifier forIndexPath:indexPath];
             [header.btnEdit addTarget:self action:@selector(editTags:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -214,7 +211,7 @@
         }
     }else if (indexPath.section == 1){
         if (kind == UICollectionElementKindSectionHeader){
-            NSString *CellIdentifier = @"head2";
+            NSString *CellIdentifier = HEAD_OTHER;
             UnselectedHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:CellIdentifier forIndexPath:indexPath];
             reusableview = header;
         }
@@ -225,8 +222,8 @@
 /** 进入编辑状态 */
 - (void)editTags:(UIButton *)sender{
     
-    if (!_onEdit) {
-        for (ChannelCollectionCell *items in _mainView.visibleCells) {
+    if (!_isEditMode) {
+        for (ChannelCollectionCell *items in _collectionMain.visibleCells) {
             if (items.model.tagType == SelectedChannel) {
                 if (items.model.resident) {
                     items.btnDel.hidden = YES;
@@ -237,15 +234,15 @@
         }
         [sender setTitle:@"完成" forState:UIControlStateNormal];
     }else{
-        for (ChannelCollectionCell *items in _mainView.visibleCells) {
+        for (ChannelCollectionCell *items in _collectionMain.visibleCells) {
             if (items.model.tagType == SelectedChannel) {
                 items.btnDel.hidden = YES;
             }
         }
         [sender setTitle:@"编辑" forState:UIControlStateNormal];
     }
-    [_mainView reloadData];
-    _onEdit = !_onEdit;
+    [_collectionMain reloadData];
+    _isEditMode = !_isEditMode;
     
 }
 
@@ -262,15 +259,15 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
-    Channel *object= _myTags[sourceIndexPath.item];
-    [_myTags removeObjectAtIndex:sourceIndexPath.item];
+    Channel *object= _selectedTags[sourceIndexPath.item];
+    [_selectedTags removeObjectAtIndex:sourceIndexPath.item];
     if (destinationIndexPath.section == 0) {
-        [_myTags insertObject:object atIndex:destinationIndexPath.item];
+        [_selectedTags insertObject:object atIndex:destinationIndexPath.item];
     }else if (destinationIndexPath.section == 1) {
         object.tagType = OtherChannel;
         object.editable = NO;
         object.selected = NO;
-        [_recommandTags insertObject:object atIndex:destinationIndexPath.item];
+        [_otherTags insertObject:object atIndex:destinationIndexPath.item];
         [collectionView reloadItemsAtIndexPaths:@[destinationIndexPath]];
     }
     
@@ -281,21 +278,21 @@
     
     if (indexPath.section == 0) {
         NSInteger item = 0;
-        for (Channel *mod in _myTags) {
+        for (Channel *mod in _selectedTags) {
             if (mod.selected) {
                 mod.selected = NO;
                 [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:item inSection:0]]];
             }
             item++;
         }
-        Channel *object = _myTags[indexPath.item];
+        Channel *object = _selectedTags[indexPath.item];
         object.selected = YES;
         [collectionView reloadItemsAtIndexPaths:@[indexPath]];
         typeof(self) __weak weakSelf = self;
         [self dismissViewControllerAnimated:YES completion:^{
             //单选某个tag
-            if (weakSelf.selectedTag) {
-                weakSelf.selectedTag(object);
+            if (weakSelf.activeTag) {
+                weakSelf.activeTag(object);
             }
         }];
     }else if (indexPath.section == 1) {
@@ -304,13 +301,13 @@
         cell.model.tagType = SelectedChannel;
         cell.title.text = cell.model.title;
 
-        //[_mainView reloadItemsAtIndexPaths:@[indexPath]];
-        [_recommandTags removeObjectAtIndex:indexPath.item];
-        [_myTags addObject:cell.model];
-        NSIndexPath *targetIndexPage = [NSIndexPath indexPathForItem:_myTags.count-1 inSection:0];
+        //[_collectionMain reloadItemsAtIndexPaths:@[indexPath]];
+        [_otherTags removeObjectAtIndex:indexPath.item];
+        [_selectedTags addObject:cell.model];
+        NSIndexPath *targetIndexPage = [NSIndexPath indexPathForItem:_selectedTags.count-1 inSection:0];
         cell.btnDel.tag = targetIndexPage.item;
-        cell.btnDel.hidden = !_onEdit;
-        [_mainView moveItemAtIndexPath:indexPath toIndexPath:targetIndexPage];
+        cell.btnDel.hidden = !_isEditMode;
+        [_collectionMain moveItemAtIndexPath:indexPath toIndexPath:targetIndexPage];
     }
     
     [self refreshDelBtnsTag];
@@ -318,26 +315,26 @@
 
 -(void)deleteCell:(UIButton *)sender{
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:sender.tag inSection:0];
-    ChannelCollectionCell *cell = (ChannelCollectionCell *)[_mainView cellForItemAtIndexPath:indexPath];
+    ChannelCollectionCell *cell = (ChannelCollectionCell *)[_collectionMain cellForItemAtIndexPath:indexPath];
     cell.model.editable = NO;
     cell.model.tagType = OtherChannel;
     cell.model.selected = NO;
     cell.btnDel.hidden = YES;
-    [_mainView reloadItemsAtIndexPaths:@[indexPath]];
+    [_collectionMain reloadItemsAtIndexPaths:@[indexPath]];
     
-    id object = _myTags[indexPath.item];
-    [_myTags removeObjectAtIndex:indexPath.item];
-    [_recommandTags insertObject:object atIndex:0];
+    id object = _selectedTags[indexPath.item];
+    [_selectedTags removeObjectAtIndex:indexPath.item];
+    [_otherTags insertObject:object atIndex:0];
     NSIndexPath *targetIndexPage = [NSIndexPath indexPathForItem:0 inSection:1];
-    [_mainView moveItemAtIndexPath:indexPath toIndexPath:targetIndexPage];
+    [_collectionMain moveItemAtIndexPath:indexPath toIndexPath:targetIndexPage];
     [self refreshDelBtnsTag];
 }
 
 /** 刷新删除按钮的tag */
 - (void)refreshDelBtnsTag{
     
-    for (ChannelCollectionCell *cell in _mainView.visibleCells) {
-        NSIndexPath *indexpath = [_mainView indexPathForCell:cell];
+    for (ChannelCollectionCell *cell in _collectionMain.visibleCells) {
+        NSIndexPath *indexpath = [_collectionMain indexPathForCell:cell];
         cell.btnDel.tag = indexpath.item;
     }
 }
@@ -351,7 +348,7 @@
     typeof(self) __weak weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
         if (weakSelf.choosedTags) {
-            weakSelf.choosedTags(self->_myTags,self->_recommandTags);
+            weakSelf.choosedTags(self->_selectedTags,self->_otherTags);
         }
     }];
 }
