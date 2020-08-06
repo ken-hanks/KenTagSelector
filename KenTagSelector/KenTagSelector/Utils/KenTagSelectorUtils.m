@@ -11,8 +11,16 @@
 @implementation KenTagSelectorUtils
 + (NSBundle*)getBundle
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"KenTagSelector" ofType:@"framework" inDirectory:@"Frameworks"];
-    return [NSBundle bundleWithPath:path];
+    NSString *path;
+    if ((path = [[NSBundle mainBundle] pathForResource:@"KenTagSelector" ofType:@"framework" inDirectory:@"Frameworks"]) != nil)
+    {
+        return [NSBundle bundleWithPath:path];
+    }
+    else if((path = [[NSBundle bundleForClass:[KenTagSelectorUtils class]] pathForResource:@"KenTagSelector" ofType:@"bundle"]) != nil)
+    {
+        return [NSBundle bundleWithPath:path];
+    }
+    return nil;
 }
 
 #pragma mark - 从Bundle中获取指定名字的图片
