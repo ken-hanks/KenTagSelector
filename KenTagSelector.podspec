@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "KenTagSelector"
-  spec.version      = "1.0.0"
+  spec.version      = "1.0.1"
   spec.summary      = "A tag selector written by Objective-C. （一个类似网易栏目选择器的标签选择界面）"
 
   # This description is used to generate tags and improve search results.
@@ -106,7 +106,10 @@ A tag selector like Netease written in Objective-C.
   #  non-essential files like tests, examples and documentation.
   #
 
-  spec.resource  = "KenTagSelector/KenTagSelector/KenTagSelector.xcassets"
+  #spec.resource  = "KenTagSelector/KenTagSelector/KenTagSelector.xcassets"
+  s.resource_bundles = {
+  	'KenTagSelector' => ['KenTagSelector/KenTagSelector/KenTagSelector.xcassets']
+	}
   # spec.resources = "Resources/*.png"
 
   # spec.preserve_paths = "FilesToSave", "MoreFilesToSave"
