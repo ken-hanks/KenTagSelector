@@ -107,7 +107,7 @@ A tag selector like Netease written in Objective-C.
   #
 
   #spec.resource  = "KenTagSelector/KenTagSelector/KenTagSelector.xcassets"
-  s.resource_bundles = {
+  spec.resource_bundles = {
   	'KenTagSelector' => ['KenTagSelector/KenTagSelector/KenTagSelector.xcassets']
 	}
   # spec.resources = "Resources/*.png"
