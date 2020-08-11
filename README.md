@@ -41,6 +41,7 @@ A tag selector written by Objective-C. （一个类似网易栏目选择器的�
     __block NSMutableArray *selectedTagArray;
     __block NSMutableArray *otherTagArray;
     NSArray     *residentArray;
+    NSString    *focusTitle;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *labelSelected;
@@ -59,7 +60,9 @@ A tag selector written by Objective-C. （一个类似网易栏目选择器的�
     
     //固定栏目列表（可选），注意：这个列表里的文字必须在“已选栏目列表”中存在，否则设了也没有用
     residentArray = @[@"关注", @"头条"];
-    
+ 
+    //焦点栏目（可选）
+    focusTitle = @"头条";
 }
 
 //“选择栏目列表”按钮被点击的处理
@@ -70,6 +73,9 @@ A tag selector written by Objective-C. （一个类似网易栏目选择器的�
     
     //设置固定栏目（可选步骤）
     selectorVC.residentTagStringArray = residentArray;
+    
+    //设置焦点栏目（可选步骤)
+    selectorVC.focusTitle = focusTitle;
     
     //弹出栏目选择界面
     [self presentViewController:selectorVC animated:YES completion:^{}];
@@ -91,9 +97,10 @@ A tag selector written by Objective-C. （一个类似网易栏目选择器的�
     };
     
     //用户点击了某个栏目的处理Block
-    selectorVC.activeTag = ^(Channel *channel) {
+    selectorVC.activeTag = ^(Channel *channel, NSInteger index) {
         [strChannels appendString:channel.title];
         self->_labelSelected.text = strChannels;  //将选中的栏目在Label中显示
+        NSLog(@"The index of Active Tag is: %ld", index);
     };
 }
 
