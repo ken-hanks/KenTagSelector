@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^ChoosedTags)(NSArray *selectedTags, NSArray *otherTags);
 
-typedef void(^ActiveTag)(Channel *channel);
+typedef void(^ActiveTag)(Channel *channel, NSInteger index);
 
 
 @interface TagSelectorVC : UIViewController
@@ -25,6 +25,8 @@ typedef void(^ActiveTag)(Channel *channel);
 @property (nonatomic, strong) NSMutableArray *otherTagStringArray;          //待选的Tag名
 
 @property (nonatomic, strong) NSArray *residentTagStringArray;              //不允许取消选择的Tag名
+
+@property (nonatomic, strong) NSString *focusTitle;                         //焦点Tag的标题
 
 @property (nonatomic, copy) ChoosedTags choosedTags;
 

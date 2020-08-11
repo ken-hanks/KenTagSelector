@@ -56,17 +56,18 @@
                 _btnDel.hidden = NO;
             }
             
-//            if (model.selected) {
-//                _title.textColor = [KenTagSelectorUtils colorNamed:@"focus_color"];
-//            }else{
+            if (model.selected) {
+                _title.textColor = [KenTagSelectorUtils colorNamed:@"focus_color"];
+            }else{
                 _title.textColor = [KenTagSelectorUtils colorNamed:@"cell_text_color"];
-            //}
+            }
             
         } else if (model.tagType == OtherChannel) {
             if (model.editable) {
                 model.editable = NO;
             }
 
+            _title.textColor = [KenTagSelectorUtils colorNamed:@"cell_text_color"];
             _btnDel.hidden = YES;
         }
         _title.text = (model.tagType == SelectedChannel) ? model.title : [@"＋" stringByAppendingString:model.title];

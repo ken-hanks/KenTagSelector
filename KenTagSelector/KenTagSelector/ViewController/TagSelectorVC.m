@@ -67,7 +67,9 @@
         }
 
         mod.editable = YES;
-        mod.selected = NO;
+        
+        mod.selected = [self.focusTitle isEqualToString:mod.title];
+        
         mod.tagType = SelectedChannel;
 
         [_selectedTags addObject:mod];
@@ -303,7 +305,7 @@
         [self dismissViewControllerAnimated:YES completion:^{
             //单选某个tag
             if (weakSelf.activeTag) {
-                weakSelf.activeTag(object);
+                weakSelf.activeTag(object, indexPath.item);
             }
         }];
     }else if (indexPath.section == 1) {

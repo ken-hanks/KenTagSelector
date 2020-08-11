@@ -14,6 +14,7 @@
     __block NSMutableArray *selectedTagArray;
     __block NSMutableArray *otherTagArray;
     NSArray     *residentArray;
+    NSString    *focusTitle;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *labelSelected;
@@ -33,6 +34,9 @@
     //固定栏目列表（可选），注意：这个列表里的文字必须在“已选栏目列表”中存在，否则设了也没有用
     residentArray = @[@"关注", @"头条"];
     
+    //焦点栏目（可选）
+    focusTitle = @"头条";
+    
     NSMutableString *strSelected = [NSMutableString new];
     for (NSString *tag in selectedTagArray)
     {
@@ -49,6 +53,9 @@
     
     //设置固定栏目（可选步骤）
     selectorVC.residentTagStringArray = residentArray;
+    
+    //设置焦点栏目（可选步骤)
+    selectorVC.focusTitle = focusTitle;
     
     //弹出栏目选择界面
     [self presentViewController:selectorVC animated:YES completion:^{}];
@@ -70,9 +77,11 @@
     };
     
     //用户点击了某个栏目的处理Block
-    selectorVC.activeTag = ^(Channel *channel) {
+    selectorVC.activeTag = ^(Channel *channel, NSInteger index) {
         [strChannels appendString:channel.title];
         self->_labelSelected.text = strChannels;
+        self->focusTitle = channel.title;
+        NSLog(@"Active index:%ld", index);
     };
 }
 
