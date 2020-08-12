@@ -305,7 +305,7 @@
         [self dismissViewControllerAnimated:YES completion:^{
             //单选某个tag
             if (weakSelf.activeTag) {
-                weakSelf.activeTag(object, indexPath.item);
+                weakSelf.activeTag(self->_selectedTags,self->_otherTags, object, indexPath.item);
             }
         }];
     }else if (indexPath.section == 1) {

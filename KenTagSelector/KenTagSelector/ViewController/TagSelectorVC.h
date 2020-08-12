@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^ChoosedTags)(NSArray *selectedTags, NSArray *otherTags);
 
-typedef void(^ActiveTag)(Channel *channel, NSInteger index);
+typedef void(^ActiveTag)(NSArray *selectedTags, NSArray *otherTags, Channel *activedTag, NSInteger index);
 
 
 @interface TagSelectorVC : UIViewController

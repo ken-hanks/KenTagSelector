@@ -77,10 +77,10 @@
     };
     
     //用户点击了某个栏目的处理Block
-    selectorVC.activeTag = ^(Channel *channel, NSInteger index) {
-        [strChannels appendString:channel.title];
+    selectorVC.activeTag = ^(NSArray *selectedTags, NSArray *otherTags, Channel *activedTag, NSInteger index) {
+        [strChannels appendString:activedTag.title];
         self->_labelSelected.text = strChannels;
-        self->focusTitle = channel.title;
+        self->focusTitle = activedTag.title;
         NSLog(@"Active index:%ld", index);
     };
 }
