@@ -97,8 +97,8 @@ A tag selector written by Objective-C. （一个类似网易栏目选择器的�
     };
     
     //用户点击了某个栏目的处理Block
-    selectorVC.activeTag = ^(Channel *channel, NSInteger index) {
-        [strChannels appendString:channel.title];
+    selectorVC.activeTag = ^(NSArray *selectedTags, NSArray *otherTags, Channel *activedTag, NSInteger index) {
+        [strChannels appendString:activedTag.title];
         self->_labelSelected.text = strChannels;  //将选中的栏目在Label中显示
         NSLog(@"The index of Active Tag is: %ld", index);
     };
