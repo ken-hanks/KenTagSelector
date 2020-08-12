@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "KenTagSelector"
-  spec.version      = "1.0.3"
+  spec.version      = "1.0.4"
   spec.summary      = "A tag selector written by Objective-C. （一个类似网易栏目选择器的标签选择界面）"
 
   # This description is used to generate tags and improve search results.
